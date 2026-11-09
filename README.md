@@ -31,3 +31,10 @@ The problem is a fixed vocabulary: a known, finite set of words that a user type
 Case handling is a deliberate choice, not an accident. By default the trie lowercases everything on insert and lookup, so `insert('Apple')` and `insert('apple')` are the same word. That keeps autocomplete forgiving for human input. If you need `Apple` and `apple` to coexist, construct the trie with `new Trie({ caseSensitive: true })`; then normalisation is skipped entirely and `has('APPLE')` will be `false` for a stored `'apple'`.
 
 The implementation iterates each node's children in sorted order, so `complete` is deterministic regardless of insertion order. It does not preserve insertion order, and it does not rank results by anything other than lexicographic order.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
