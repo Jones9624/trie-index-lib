@@ -1,6 +1,6 @@
 {
   "name": "trie-index-lib",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Dependency-free trie for sorted autocomplete over a fixed word list.",
   "type": "module",
   "main": "src/index.js",
